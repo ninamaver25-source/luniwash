@@ -1,0 +1,163 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand: #e3141b;
+  --color-brand-dark: #a50d13;
+  --color-brand-deep: #6e070b;
+  --color-brand-soft: #ffe9ea;
+  --color-ink: #1a0b0c;
+  --color-cream: #fff8f6;
+
+  --font-display: var(--font-fredoka), ui-rounded, system-ui, sans-serif;
+  --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-float-slow: float 9s ease-in-out infinite;
+  --animate-spin-drum: spin 2.4s linear infinite;
+  --animate-marquee: marquee 28s linear infinite;
+  --animate-blink: blink 1.6s steps(2, start) infinite;
+  --animate-wobble: wobble 3.2s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-18px) rotate(2deg); }
+}
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@keyframes blink {
+  to { visibility: hidden; }
+}
+@keyframes wobble {
+  0%, 100% { transform: rotate(-3deg) scale(1); }
+  50% { transform: rotate(3deg) scale(1.04); }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes bubble-rise {
+  0% { transform: translate3d(0, 0, 0) scale(0.6); opacity: 0; }
+  10% { opacity: 1; }
+  50% { transform: translate3d(var(--drift, 20px), -50vh, 0) scale(1); }
+  90% { opacity: 0.9; }
+  100% { transform: translate3d(calc(var(--drift, 20px) * -1), -105vh, 0) scale(1.1); opacity: 0; }
+}
+
+@keyframes slosh {
+  0%, 100% { transform: translateX(-8%) rotate(-4deg); }
+  50% { transform: translateX(8%) rotate(4deg); }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translate(0, 0) rotate(0); }
+  25% { transform: translate(-1.5px, 0.5px) rotate(-0.4deg); }
+  75% { transform: translate(1.5px, -0.5px) rotate(0.4deg); }
+}
+
+@keyframes heat {
+  0% { transform: translateY(6px) scaleY(0.8); opacity: 0; }
+  40% { opacity: 0.9; }
+  100% { transform: translateY(-14px) scaleY(1.1); opacity: 0; }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Lenis prevzame gladko drsenje, ko je aktiven */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+body {
+  background: #ffffff;
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+}
+
+::selection {
+  background: var(--color-brand);
+  color: #fff;
+}
+
+/* Bubbly sticker-like display text, inspired by the logo */
+.text-sticker {
+  color: var(--color-brand);
+  text-shadow:
+    0 2px 0 #fff,
+    0 -2px 0 #fff,
+    2px 0 0 #fff,
+    -2px 0 0 #fff,
+    0 6px 0 var(--color-brand-dark),
+    0 14px 24px rgba(165, 13, 19, 0.25);
+}
+
+.text-sticker-light {
+  color: #fff;
+  text-shadow:
+    0 5px 0 var(--color-brand-deep),
+    0 14px 30px rgba(0, 0, 0, 0.25);
+}
+
+/* Glossy red bubble, matching the bubbles in the logo */
+.bubble-red {
+  background:
+    radial-gradient(circle at 32% 28%, rgba(255, 255, 255, 0.95) 0 9%, rgba(255, 255, 255, 0) 16%),
+    radial-gradient(circle at 50% 55%, #ff4a4f 0%, #e3141b 55%, #8f0a10 100%);
+  box-shadow:
+    inset -6px -8px 16px rgba(80, 0, 4, 0.35),
+    0 10px 30px rgba(227, 20, 27, 0.3);
+}
+
+/* Transparent soap bubble with iridescent rim */
+.bubble-soap {
+  background:
+    radial-gradient(circle at 30% 26%, rgba(255, 255, 255, 0.95) 0 7%, rgba(255, 255, 255, 0) 14%),
+    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0) 58%, rgba(255, 180, 190, 0.45) 72%, rgba(170, 210, 255, 0.5) 84%, rgba(255, 255, 255, 0.7) 100%);
+  box-shadow: inset 0 0 12px rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(1px);
+}
+
+/* Chunky 3D button */
+.btn-3d {
+  position: relative;
+  transform: translateY(0);
+  box-shadow: 0 6px 0 var(--color-brand-deep), 0 14px 28px rgba(227, 20, 27, 0.35);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.btn-3d:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 0 var(--color-brand-deep), 0 18px 34px rgba(227, 20, 27, 0.4);
+}
+.btn-3d:active {
+  transform: translateY(5px);
+  box-shadow: 0 1px 0 var(--color-brand-deep), 0 6px 14px rgba(227, 20, 27, 0.3);
+}
+
+.dot-grid {
+  background-image: radial-gradient(rgba(227, 20, 27, 0.14) 1.5px, transparent 1.5px);
+  background-size: 22px 22px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}
